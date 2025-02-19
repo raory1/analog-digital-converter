@@ -33,9 +33,9 @@
 #define STEP 10
 #define INITIAL_X 28
 #define INITIAL_Y 60
-
 #define PWM_WRAP 20000
 
+// Variáveis globais
 PIO pio;
 uint sm;
 ssd1306_t ssd; // Inicializa a estrutura do display
@@ -49,7 +49,6 @@ int width = 8;
 int high = 8;
 bool sw_value = 0;
 
-// Variáveis globais
 bool pwm_habilitado = true;
 ssd1306_t oled_display;
 uint slice_led_blue;
@@ -80,6 +79,7 @@ void atualizar_display()
     ssd1306_send_data(&ssd);
 }
 
+// Funçao callback dos botões
 void gpio_irq_handler(uint gpio, uint32_t events)
 {
     printf("Configurado\n");
@@ -196,8 +196,8 @@ int main()
 
         // Atualiza os LEDs com base nos valores de VRX e VRY
         if(pwm_habilitado){
-            pwm_set_gpio_level(LED_BLUE,  abs(vry_value - 2048));
-            pwm_set_gpio_level(LED_RED, abs(vrx_value - 2048));
+            pwm_set_gpio_level(LED_BLUE,  abs(vrx_value - 2048));
+            pwm_set_gpio_level(LED_RED, abs(vry_value - 2048));
         }
 
         sleep_ms(100);
